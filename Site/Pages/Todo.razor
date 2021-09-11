@@ -4,14 +4,34 @@
 
 <ul>
     @foreach (var todo in todos)
-            {
-                <li>
-                    <input type="checkbox" @bind="todo.IsDone" />
-                    <input @bind="todo.Title" />
-                </li>
-            }
+    {
+        @if (!todo.IsDone) // mostrar somente as tarefas pendentes
+        {
+            <li>
+                <input type="checkbox" @bind="todo.IsDone" />
+                <input @bind="todo.Title" />
+            </li>
+        }
+    }
 </ul>
 
+<br />
+<h3>Tarefas Concluídas (@todos.Count(todo => todo.IsDone))</h3>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        @if (todo.IsDone) // mostrar somente as tarefas concluídas
+        {
+            <li>
+                @todo.Title
+            </li>
+        }
+    }
+</ul>
+
+<br />
+<hr width="27%" align="left" />
 <input placeholder="Tarefa pendente" @bind="newTodo" />
 <button @onclick="AddTodo">Adicionar</button>
 
