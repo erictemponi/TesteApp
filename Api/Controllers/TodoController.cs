@@ -26,7 +26,6 @@ namespace Api.Controllers
                 return BadRequest();
             return TodoService.ObterTodasConcluidas();
         }
-
         
         // Obter todas uma tarefa específica
         [HttpGet("{id:int}")]
@@ -40,7 +39,7 @@ namespace Api.Controllers
             return todo;
         }
         
-
+        // Inserir uma nova tarefa
         [HttpPost]
         public IActionResult Create(Todo todo)
         {
@@ -48,6 +47,7 @@ namespace Api.Controllers
             return CreatedAtAction(nameof(Create), new { id = todo.Id }, todo);
         }
 
+        // Alterar uma tarefa existente
         [HttpPut("{id}")]
         public IActionResult Update(int id, Todo todo)
         {
@@ -63,6 +63,7 @@ namespace Api.Controllers
             return NoContent();
         }
 
+        // Remover uma tarefa existente
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
