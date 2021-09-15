@@ -80,16 +80,47 @@ namespace Api.Controllers
             return todo;
         }
         
-        // Inserir uma nova tarefa
-        [HttpPost]
+        /// <summary>
+        /// Insere uma nova tarefa na lista
+        /// </summary>
+        /// <param name="todo">Tarefa a ser adicionada na lista</param>
+        /// <returns>A nova tarefa adicionada</returns>
+        /// <remarks>
+        /// Inserção simples:
+        /// 
+        ///     Post -c "{"title":"Nova tarefa"}"
+        ///     
+        /// </remarks>
+        /// <response code="201">Adiciona a nova tarefa na lista e a retorna</response>
+        [HttpPost(Name = nameof(Create))]
+        [Produces("text/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult Create(Todo todo)
         {
             TodoService.Inserir(todo);
             return CreatedAtAction(nameof(Create), new { id = todo.Id }, todo);
         }
 
-        // Alterar uma tarefa existente
-        [HttpPut("{id}")]
+        /// <summary>
+        /// Altera uma tarefa existente na lista de tarefas
+        /// </summary>
+        /// <param name="id">ID da tarefa a ser alterada</param>
+        /// <param name="todo">A tarefa alterada</param>
+        /// <returns>Retorna uma mensagem de NoContent (sem conteúdo) no caso da alteração ser realizada com sucesso</returns>
+        /// <remarks>
+        /// Alteração simples:
+        /// 
+        ///     Put 4 -c "{"id": 4, "title":"Novo título", "isDone": false}"
+        ///     
+        /// </remarks>
+        /// <response code="204">Tarefa alterada com sucesso</response>
+        /// <response code="400">Ocorre quando o id depois do Put for diferente do id da tarefa</response>
+        /// <response code="404">Ocorre quando não existe uma tarefa com o id passado como parâmetro</response>
+        [HttpPut("{id}", Name = nameof(Update))]
+        [Produces("text/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Update(int id, Todo todo)
         {
             if (id != todo.Id)
@@ -104,8 +135,23 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // Remover uma tarefa existente
+        /// <summary>
+        /// Remove uma tarefa da lista de tarefas
+        /// </summary>
+        /// <param name="id">Identificador da tarefa a ser removida</param>
+        /// <returns>Retorna uma mensagem de NoContent (sem conteúdo) no caso da remoção ser realizada com sucesso</returns>
+        /// <remarks>
+        /// Remoção simples
+        /// 
+        ///     Delete 2
+        ///     
+        /// </remarks>
+        /// <response code="204">Tarefa removida com sucesso</response>
+        /// <response code="404">Ocorre quando não existe uma tarefa com o id passado como parâmatro</response>
         [HttpDelete("{id}")]
+        [Produces("text/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete(int id)
         {
             var todo = TodoService.Obter(id);

@@ -36,7 +36,7 @@ namespace Api
                 {
                     Title = "API Tarefas",
                     Version = "v1",
-                    Description = "Manipula tarefas a serem realizadas",
+                    Description = "Manipula tarefas a serem realizadas e tarefas concluídas",
                     Contact = new OpenApiContact
                     {
                         Name = "Eric Temponi",
