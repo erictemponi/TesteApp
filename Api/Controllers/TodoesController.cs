@@ -41,6 +41,30 @@ namespace Api.Controllers
             return await _context.Todos.ToListAsync();
         }
 
+        /// <summary>
+        /// Retorna todas as tarefas da base de dados marcadas como concluídas
+        /// </summary>
+        /// <param name="done">Precisa digitar done depois do get</param>
+        /// <returns>Uma lista com todas as tarefas concluídas</returns>
+        /// <remarks>
+        /// Requisição simples:
+        /// 
+        ///     Get /todoes/done
+        ///     
+        /// </remarks>
+        /// <response code="200">Retorna uma lista com todas as tarefas concluídas</response>
+        /// <response code="400">Se o parâmetro digitado for diferente de done</response>
+        [HttpGet("{done}", Name = nameof(GetTodosDone))]
+        [Produces("text/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Todo>>> GetTodosDone(string done)
+        {
+            if (!(done.ToLower() == "done"))
+                return BadRequest();
+            return await _context.Todos.Where(t => t.IsDone == true).ToListAsync();
+        }
+
         // GET: api/Todoes/5
         /// <summary>
         /// Retorna uma tarefa específica com base em um ID
