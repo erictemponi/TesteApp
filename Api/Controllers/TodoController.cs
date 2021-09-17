@@ -148,7 +148,7 @@ namespace Api.Controllers
         /// </remarks>
         /// <response code="204">Tarefa removida com sucesso</response>
         /// <response code="404">Ocorre quando não existe uma tarefa com o id passado como parâmatro</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = nameof(Delete))]
         [Produces("text/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
