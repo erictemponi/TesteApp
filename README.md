@@ -16,7 +16,9 @@ As tarefas pendentes são exibidas cada uma em uma caixa de texto e podem ser al
 
 API Web RESTful com ASP.NET Core
 
-API RESTful com os ações GET, PUT, POST e DELETE para manipular tarefas. Possui um modelo, o qual contém os atributos das tarefas: ID, Título e se foi concluída ou não. Esse modelo é a classe **Todo**. Além do modelo, possui um controlador e um serviço. O serviço trata da lógica por traz da manipulação das tarefas: obter todas as tarefas, obter todas as tarefas concluídas, obter uma única tarefa, bem como inserir, alterar e remover tarefas. O controlador faz a ligação entre as ações GET, PUT, POST e DELETE com as funções do serviço.
+API RESTful com os ações GET, PUT, POST e DELETE para manipular tarefas. Possui um modelo, o qual contém os atributos das tarefas: ID, Título e se foi concluída ou não. Esse modelo é a classe **Todo**. Além do modelo, possui duas controladoras e um serviço. O serviço trata da lógica por traz da manipulação das tarefas: obter todas as tarefas, obter todas as tarefas concluídas, obter uma única tarefa, bem como inserir, alterar e remover tarefas. A controladora TodoController faz a ligação entre as ações GET, PUT, POST e DELETE com as funções do serviço. A controladora TodoesController faz as mesmas coisas, só que de forma persistente, ou seja, fazendo uso de uma base de dados.
+
+A base de dados utilizada é o SQL Server que já vem embutido no Visual Studio (localdb). Não é necessário criar a tabela para as tarefas, a própria API já faz isso, uma vez que for executada e já adiciona 5 tarefas na base de dados.
 
 A API possui uma lista de tarefas com 5 tarefas já adicionadas e conta com as seguintes ações HTTP:
 
@@ -43,3 +45,11 @@ A API possui uma lista de tarefas com 5 tarefas já adicionadas e conta com as s
 **6) DELETE id** --> Remove uma tarefa da lista.
 
 <img src="https://i.ibb.co/JjfGkK3/DELETE.png" />
+
+## Observações
+
+Além desta documentação do README, existe, também, a documentação do Swagger, a qual explica como usar os métodos de cada controladora. Para acessar a documentação Swagger, basta navegar até a API com o Shell e executar o seguinte comando:
+
+	dotnet run
+
+Após isso, é só acessar a documentação através do endereço: http://localhost:5000/swagger
