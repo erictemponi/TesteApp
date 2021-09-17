@@ -43,9 +43,11 @@ namespace Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Retorna uma lista com todas as tarefas concluídas</response>
+        /// <response code="400">Se o parâmetro digitado for diferente de done</response>
         [HttpGet("{done}", Name = nameof(ObterTodasConcluidas))]
         [Produces("text/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<Todo>> ObterTodasConcluidas(string done)
         {
             if (!(done.ToLower() == "done"))
